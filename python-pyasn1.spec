@@ -3,8 +3,8 @@
 %define module pyasn1
 
 Name:           python-pyasn1
-Version:        0.0.7a
-Release:        4%{?dist}
+Version:        0.0.8a
+Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Sep  9 2008 Paul P. Komkoff Jr <i@stingr.net> - 0.0.8a-1
+- Update to upstream version 0.0.8a
+
 * Wed Jan 16 2008 Rob Crittenden <rcritten@redhat.com> - 0.0.7a-4
 - Use setuptools to install the package
 - simplify the files included in the rpm so it includes the .egg-info
