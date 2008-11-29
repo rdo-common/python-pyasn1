@@ -4,7 +4,7 @@
 
 Name:           python-pyasn1
 Version:        0.0.8a
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Nov 29 2008 Ignacio Vazquez-Abrams <ivazqueznet+rpm@gmail.com> - 0.0.8a-2
+- Rebuild for Python 2.6
+
 * Tue Sep  9 2008 Paul P. Komkoff Jr <i@stingr.net> - 0.0.8a-1
 - Update to upstream version 0.0.8a
 
