@@ -4,7 +4,7 @@
 
 Name:           python-pyasn1
 Version:        0.0.8a
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -39,11 +39,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc README LICENSE examples/*
+%doc README LICENSE doc/notes.html examples/*
 %{python_sitelib}/*
 
 
 %changelog
+* Wed Sep  2 2009 Rob Crittenden <rcritten@redhat.com> - 0.0.8a-5
+- Include doc/notes.html in the package
+
 * Sun Jul 26 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.8a-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
