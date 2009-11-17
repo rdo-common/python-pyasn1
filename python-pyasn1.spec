@@ -3,8 +3,8 @@
 %define module pyasn1
 
 Name:           python-pyasn1
-Version:        0.0.8a
-Release:        5%{?dist}
+Version:        0.0.9a
+Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -13,6 +13,7 @@ URL:            http://pyasn1.sourceforge.net/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools
+Patch1:         pyasn1-any.patch
 
 %description
 This project is dedicated to implementation of ASN.1 types (concrete syntax)
@@ -22,6 +23,7 @@ compiler is planned for implementation in the future.
 
 %prep
 %setup -n %{module}-%{version} -q
+%patch1 -p1
 
 
 %build
@@ -44,6 +46,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Nov 16 2009 Rob Crittenden <rcritten@redhat.com> - 0.0.9a-1
+- Update to upstream version 0.0.9a
+- Include patch that adds parsing for the Any type
+
 * Wed Sep  2 2009 Rob Crittenden <rcritten@redhat.com> - 0.0.8a-5
 - Include doc/notes.html in the package
 
