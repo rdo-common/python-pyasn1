@@ -4,7 +4,7 @@
 
 Name:           python-pyasn1
 Version:        0.0.9a
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 22 2010 David Malcolm <dmalcolm@redhat.com> - 0.0.9a-2
+- Rebuilt for https://fedoraproject.org/wiki/Features/Python_2.7/MassRebuild
+
 * Mon Nov 16 2009 Rob Crittenden <rcritten@redhat.com> - 0.0.9a-1
 - Update to upstream version 0.0.9a
 - Include patch that adds parsing for the Any type
