@@ -1,7 +1,7 @@
-diff -uN --recursive pyasn1-0.0.9a/pyasn1/v1/codec/ber/decoder.py pyasn1-0.0.9a.any/pyasn1/v1/codec/ber/decoder.py
---- pyasn1-0.0.9a/pyasn1/v1/codec/ber/decoder.py	2008-11-23 06:45:14.000000000 -0500
-+++ pyasn1-0.0.9a.any/pyasn1/v1/codec/ber/decoder.py	2009-11-16 15:36:38.000000000 -0500
-@@ -312,6 +312,29 @@
+diff -u --recursive pyasn1-0.0.12a/pyasn1/codec/ber/decoder.py pyasn1-0.0.12a.any/pyasn1/codec/ber/decoder.py
+--- pyasn1-0.0.12a/pyasn1/codec/ber/decoder.py	2010-11-19 12:43:25.000000000 -0500
++++ pyasn1-0.0.12a.any/pyasn1/codec/ber/decoder.py	2010-12-22 15:22:03.000000000 -0500
+@@ -316,6 +316,29 @@
  class UTCTimeDecoder(OctetStringDecoder):
      protoComponent = useful.UTCTime()
  
@@ -31,7 +31,7 @@ diff -uN --recursive pyasn1-0.0.9a/pyasn1/v1/codec/ber/decoder.py pyasn1-0.0.9a.
  codecMap = {
      eoo.endOfOctets.tagSet: EndOfOctetsDecoder(),
      univ.Integer.tagSet: IntegerDecoder(),
-@@ -352,6 +375,7 @@
+@@ -359,6 +382,7 @@
          # Decode tag & length
          while state != stStop:
              if state == stDecodeTag:
@@ -39,7 +39,7 @@ diff -uN --recursive pyasn1-0.0.9a/pyasn1/v1/codec/ber/decoder.py pyasn1-0.0.9a.
                  # Decode tag
                  if not substrate:
                      raise error.SubstrateUnderrunError(
-@@ -415,6 +439,7 @@
+@@ -422,6 +446,7 @@
                      raise error.SubstrateUnderrunError(
                          '%d-octet short' % (length - len(substrate))
                          )
@@ -47,7 +47,7 @@ diff -uN --recursive pyasn1-0.0.9a/pyasn1/v1/codec/ber/decoder.py pyasn1-0.0.9a.
              if state == stGetValueDecoder:
                  if asn1Spec is None:
                      state = stGetValueDecoderByTag
-@@ -457,7 +482,12 @@
+@@ -464,7 +489,12 @@
                      __chosenSpec = asn1Spec
                  else:
                      __chosenSpec = None
@@ -61,10 +61,9 @@ diff -uN --recursive pyasn1-0.0.9a/pyasn1/v1/codec/ber/decoder.py pyasn1-0.0.9a.
                         __chosenSpec.getTypeMap().has_key(tagSet):
                      state = stTryAsExplicitTag
                  else:
-Binary files pyasn1-0.0.9a/pyasn1/v1/codec/ber/.decoder.py.swp and pyasn1-0.0.9a.any/pyasn1/v1/codec/ber/.decoder.py.swp differ
-diff -uN --recursive pyasn1-0.0.9a/pyasn1/v1/codec/ber/encoder.py pyasn1-0.0.9a.any/pyasn1/v1/codec/ber/encoder.py
---- pyasn1-0.0.9a/pyasn1/v1/codec/ber/encoder.py	2008-05-17 05:59:56.000000000 -0400
-+++ pyasn1-0.0.9a.any/pyasn1/v1/codec/ber/encoder.py	2009-11-16 15:36:38.000000000 -0500
+diff -u --recursive pyasn1-0.0.12a/pyasn1/codec/ber/encoder.py pyasn1-0.0.12a.any/pyasn1/codec/ber/encoder.py
+--- pyasn1-0.0.12a/pyasn1/codec/ber/encoder.py	2010-11-19 12:43:25.000000000 -0500
++++ pyasn1-0.0.12a.any/pyasn1/codec/ber/encoder.py	2010-12-22 15:22:03.000000000 -0500
 @@ -194,6 +194,16 @@
                  ) + substrate
          return substrate, 1
@@ -75,7 +74,7 @@ diff -uN --recursive pyasn1-0.0.9a/pyasn1/v1/codec/ber/encoder.py pyasn1-0.0.9a.
 +            return chr(t[0]|t[1]|t[2]|tag.tagFormatConstructed)
 +        else:
 +            return chr(t[0]|t[1]|t[2])
-+    def _encodeValue(self, encodeFun, value, defMode, maxChunkSize):
++    def encodeValue(self, encodeFun, value, defMode, maxChunkSize):
 +        assert len(value._value) <= maxChunkSize
 +        return str(value._value), 0
 +
@@ -94,10 +93,10 @@ diff -uN --recursive pyasn1-0.0.9a/pyasn1/v1/codec/ber/encoder.py pyasn1-0.0.9a.
              if not concreteEncoder:
                  # XXX
                  baseTagSet = tagSet.getBaseTag()
-diff -uN --recursive pyasn1-0.0.9a/pyasn1/v1/type/univ.py pyasn1-0.0.9a.any/pyasn1/v1/type/univ.py
---- pyasn1-0.0.9a/pyasn1/v1/type/univ.py	2008-11-23 06:45:35.000000000 -0500
-+++ pyasn1-0.0.9a.any/pyasn1/v1/type/univ.py	2009-11-16 15:36:38.000000000 -0500
-@@ -629,5 +629,10 @@
+diff -u --recursive pyasn1-0.0.12a/pyasn1/type/univ.py pyasn1-0.0.12a.any/pyasn1/type/univ.py
+--- pyasn1-0.0.12a/pyasn1/type/univ.py	2010-11-19 12:43:25.000000000 -0500
++++ pyasn1-0.0.12a.any/pyasn1/type/univ.py	2010-12-22 15:22:03.000000000 -0500
+@@ -639,5 +639,10 @@
  
      def setDefaultComponents(self): pass
  
