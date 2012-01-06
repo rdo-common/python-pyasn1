@@ -1,38 +1,50 @@
 %{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
 
-%define module pyasn1
+%global module pyasn1
+%global modules_version 0.0.2
 
 Name:           python-pyasn1
-Version:        0.0.12a
-Release:        2%{?dist}
+Version:        0.1.2
+Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
 Source0:        http://downloads.sourceforge.net/pyasn1/pyasn1-%{version}.tar.gz
+Source1:        http://downloads.sourceforge.net/pyasn1/pyasn1-modules-%{modules_version}.tar.gz
 URL:            http://pyasn1.sourceforge.net/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools
-Patch1:         pyasn1-any.patch
 
 %description
 This project is dedicated to implementation of ASN.1 types (concrete syntax)
 and codecs (transfer syntaxes) for Python programming environment. ASN.1
 compiler is planned for implementation in the future.
 
+%package modules
+Summary:    Modules for pyasn1
+
+
+%description modules
+ASN.1 types modules.
 
 %prep
-%setup -n %{module}-%{version} -q
-%patch1 -p1
+%setup -n %{module}-%{version} -q -b1
 
 
 %build
 %{__python} setup.py build
+pushd ../pyasn1-modules-%{modules_version}
+%{__python} setup.py build
+popd
 
 
 %install
 rm -rf $RPM_BUILD_ROOT
 %{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT
+pushd ../pyasn1-modules-%{modules_version}
+%{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT
+popd
 
 
 %clean
@@ -41,11 +53,20 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc README LICENSE doc/notes.html examples/*
-%{python_sitelib}/*
+%doc README LICENSE doc/*.html
+%{python_sitelib}/%{module}
+%{python_sitelib}/%{module}-%{version}-*.egg-info/
+
+%files modules
+%defattr(-,root,root,-)
+%{python_sitelib}/%{module}_modules/
+%{python_sitelib}/%{module}_modules-%{modules_version}-*.egg-info/
 
 
 %changelog
+* Mon Jan 02 2012 Jeroen van Meeuwen <vanmeeuwen@kolabsys.com> - 0.1.2-1
+- New upstream version
+
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.0.12a-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
