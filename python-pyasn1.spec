@@ -5,10 +5,10 @@
 %endif
 
 %global module pyasn1
-%global modules_version 0.0.4
+%global modules_version 0.0.5
 
 Name:           python-pyasn1
-Version:        0.1.6
+Version:        0.1.7
 Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
@@ -135,6 +135,10 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jul 24 2013 Rob Crittenden <rcritten@redhat.com> - 0.1.7-1
+- update to upstream release 0.1.7
+- update modules to 0.0.5
+
 * Sat Feb 16 2013 Jamie Nguyen <jamielinux@fedoraproject.org> - 0.1.6-1
 - update to upstream release 0.1.6
 - update modules to 0.0.4
