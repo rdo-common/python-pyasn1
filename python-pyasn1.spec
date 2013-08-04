@@ -9,7 +9,7 @@
 
 Name:           python-pyasn1
 Version:        0.1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -135,6 +135,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sun Aug 04 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Wed Jul 24 2013 Rob Crittenden <rcritten@redhat.com> - 0.1.7-1
 - update to upstream release 0.1.7
 - update modules to 0.0.5
