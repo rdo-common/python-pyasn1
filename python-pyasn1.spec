@@ -5,11 +5,11 @@
 %endif
 
 %global module pyasn1
-%global modules_version 0.0.5
+%global modules_version 0.0.6
 
 Name:           python-pyasn1
-Version:        0.1.7
-Release:        5%{?dist}
+Version:        0.1.8
+Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -135,6 +135,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Jul 15 2015 Jason L Tibbitts III <tibbs@math.uh.edu> - 0.1.8-1
+- Update to new upstream release 0.1.8, modules 0.0.6.
+
 * Thu Jun 18 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.1.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
 
