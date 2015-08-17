@@ -9,7 +9,7 @@
 
 Name:           python-pyasn1
 Version:        0.1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -112,7 +112,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc README LICENSE doc/*.html
+%doc README doc/*.html
+%license LICENSE
 %{python_sitelib}/%{module}
 %{python_sitelib}/%{module}-%{version}-*.egg-info/
 
@@ -124,7 +125,8 @@ rm -rf $RPM_BUILD_ROOT
 %if 0%{?with_python3}
 %files -n python3-pyasn1
 %defattr(-,root,root,-)
-%doc README LICENSE doc/*.html
+%doc README doc/*.html
+%license LICENSE
 %{python3_sitelib}/%{module}
 %{python3_sitelib}/%{module}-%{version}-*.egg-info/
 
@@ -135,6 +137,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Sat Aug 15 2015 Rob Crittenden <rcritten@redhat.com> - 0.1.8-2
+- Move LICENSE to the license tag instead of doc.
+
 * Wed Jul 15 2015 Jason L Tibbitts III <tibbs@math.uh.edu> - 0.1.8-1
 - Update to new upstream release 0.1.8, modules 0.0.6.
 
