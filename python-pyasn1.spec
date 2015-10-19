@@ -5,11 +5,11 @@
 %endif
 
 %global module pyasn1
-%global modules_version 0.0.6
+%global modules_version 0.0.8
 
 Name:           python-pyasn1
-Version:        0.1.8
-Release:        2%{?dist}
+Version:        0.1.9
+Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -112,8 +112,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%doc README doc/*.html
-%license LICENSE
+%doc README.txt doc/*.html
+%license LICENSE.txt
 %{python_sitelib}/%{module}
 %{python_sitelib}/%{module}-%{version}-*.egg-info/
 
@@ -125,8 +125,8 @@ rm -rf $RPM_BUILD_ROOT
 %if 0%{?with_python3}
 %files -n python3-pyasn1
 %defattr(-,root,root,-)
-%doc README doc/*.html
-%license LICENSE
+%doc README.txt doc/*.html
+%license LICENSE.txt
 %{python3_sitelib}/%{module}
 %{python3_sitelib}/%{module}-%{version}-*.egg-info/
 
@@ -137,6 +137,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Oct 19 2015 Rob Crittenden <rcritten@redhat.com> - 0.1.9-1
+- Update to new upstream release 0.1.9, modules 0.0.8.
+
 * Sat Aug 15 2015 Rob Crittenden <rcritten@redhat.com> - 0.1.8-2
 - Move LICENSE to the license tag instead of doc.
 
