@@ -9,7 +9,7 @@
 
 Name:           python-pyasn1
 Version:        0.1.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -137,6 +137,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Wed Nov 04 2015 Robert Kuska <rkuska@redhat.com> - 0.1.9-2
+- Rebuilt for Python3.5 rebuild
+
 * Mon Oct 19 2015 Rob Crittenden <rcritten@redhat.com> - 0.1.9-1
 - Update to new upstream release 0.1.9, modules 0.0.8.
 
