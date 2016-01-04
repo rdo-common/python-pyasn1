@@ -9,7 +9,7 @@
 
 Name:           python-pyasn1
 Version:        0.1.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -29,15 +29,25 @@ BuildRequires:  python3-setuptools
 This is an implementation of ASN.1 types and codecs in the Python programming
 language.
 
-%package modules
+%package -n python2-pyasn1
+Summary:    ASN.1 tools for Python 2
+%{?python_provide:%python_provide python2-pyasn1}
+
+%description -n python2-pyasn1
+This is an implementation of ASN.1 types and codecs in the Python 2 programming
+language.
+
+%package -n python2-pyasn1-modules
 Summary:    Modules for pyasn1
 Requires:   python-pyasn1 >= %{version}-%{release}
+%{?python_provide:%python_provide python2-modules}
 
-%description modules
+%description -n python2-pyasn1-modules
 ASN.1 types modules for python-pyasn1.
 
 %package -n python3-pyasn1
 Summary:    ASN.1 tools for Python 3
+%{?python_provide:%python_provide python3-pyasn1}
 
 %description -n python3-pyasn1
 This is an implementation of ASN.1 types and codecs in the Python 3 programming
@@ -46,6 +56,7 @@ language.
 %package -n python3-pyasn1-modules
 Summary:    Modules for pyasn1
 Requires:   python3-pyasn1 >= %{version}-%{release}
+%{?python_provide:%python_provide python3-modules}
 
 %description -n python3-pyasn1-modules
 ASN.1 types modules for python3-pyasn1.
@@ -110,14 +121,14 @@ popd
 rm -rf $RPM_BUILD_ROOT
 
 
-%files
+%files -n python2-pyasn1
 %defattr(-,root,root,-)
 %doc README.txt doc/*.html
 %license LICENSE.txt
 %{python_sitelib}/%{module}
 %{python_sitelib}/%{module}-%{version}-*.egg-info/
 
-%files modules
+%files -n python2-pyasn1-modules
 %defattr(-,root,root,-)
 %{python_sitelib}/%{module}_modules/
 %{python_sitelib}/%{module}_modules-%{modules_version}-*.egg-info/
@@ -137,6 +148,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jan  4 2016 Rob Crittenden <rcritten@redhat.com> - 0.1.9-3
+- Explicitly provide python2 subpackages, use python_provide macro
+
 * Wed Nov 04 2015 Robert Kuska <rkuska@redhat.com> - 0.1.9-2
 - Rebuilt for Python3.5 rebuild
 
