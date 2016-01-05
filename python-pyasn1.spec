@@ -9,7 +9,7 @@
 
 Name:           python-pyasn1
 Version:        0.1.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -40,7 +40,7 @@ language.
 %package -n python2-pyasn1-modules
 Summary:    Modules for pyasn1
 Requires:   python-pyasn1 >= %{version}-%{release}
-%{?python_provide:%python_provide python2-modules}
+%{?python_provide:%python_provide python2-pyasn1-modules}
 
 %description -n python2-pyasn1-modules
 ASN.1 types modules for python-pyasn1.
@@ -148,6 +148,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Tue Jan  5 2016 Martin Kosek <mkosek@redhat.com> - 0.1.9-4
+- Fix python2 provides for pyasn1 modules (#1295693)
+
 * Mon Jan  4 2016 Rob Crittenden <rcritten@redhat.com> - 0.1.9-3
 - Explicitly provide python2 subpackages, use python_provide macro
 
