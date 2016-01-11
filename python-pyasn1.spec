@@ -9,7 +9,7 @@
 
 Name:           python-pyasn1
 Version:        0.1.9
-Release:        5%{?dist}
+Release:        5%{?dist}.1
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -32,7 +32,7 @@ language.
 %package -n python2-pyasn1
 Summary:    ASN.1 tools for Python 2
 %{?python_provide:%python_provide python2-pyasn1}
-%{!?python_provide:Provides python-pyasn1}
+%{!?python_provide:Provides: python-pyasn1}
 
 %description -n python2-pyasn1
 This is an implementation of ASN.1 types and codecs in the Python 2 programming
@@ -42,7 +42,7 @@ language.
 Summary:    Modules for pyasn1
 Requires:   python-pyasn1 >= %{version}-%{release}
 %{?python_provide:%python_provide python2-pyasn1-modules}
-%{!?python_provide:Provides python-pyasn1-modules}
+%{!?python_provide:Provides: python-pyasn1-modules}
 
 %description -n python2-pyasn1-modules
 ASN.1 types modules for python-pyasn1.
@@ -150,6 +150,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %changelog
+* Mon Jan 11 2016 Rob Crittenden <rcritten@redhat.com> - 0.1.9-5.1
+- Add in missing colon after Provides
+
 * Mon Jan 11 2016 Rob Crittenden <rcritten@redhat.com> - 0.1.9-5
 - If python_provide wasn't defined then the python2 subpackages
   didn't provide python-pyasn1-*
