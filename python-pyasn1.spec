@@ -8,12 +8,13 @@
 %global modules_version 0.0.8
 
 Name:           python-pyasn1
-Version:        0.1.9
-Release:        8%{?dist}.1
+Version:        0.2.1
+Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
-Source0:        http://downloads.sourceforge.net/pyasn1/pyasn1-%{version}.tar.gz
+Source0:        https://github.com/etingof/pyasn1/archive/v%{version}.tar.gz
+# Modules have not been moved to GitHub AFAICT
 Source1:        http://downloads.sourceforge.net/pyasn1/pyasn1-modules-%{modules_version}.tar.gz
 URL:            http://pyasn1.sourceforge.net/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -63,6 +64,13 @@ Requires:   python3-pyasn1 >= %{version}-%{release}
 %description -n python3-pyasn1-modules
 ASN.1 types modules for python3-pyasn1.
 
+%package doc
+Summary:        Documentation for pyasn1
+BuildRequires:  python-sphinx
+
+%description doc
+%{summary}.
+
 
 %prep
 %setup -n %{module}-%{version} -q -b1
@@ -107,6 +115,11 @@ pushd ../pyasn1-modules-%{modules_version}
 %{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT
 popd
 
+pushd doc
+make html
+rm -f build/html/.buildinfo
+popd
+
 
 %check
 # PYTHONPATH is required because the the tests expect python{,3}-pyasn1
@@ -125,8 +138,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n python2-pyasn1
 %defattr(-,root,root,-)
-%doc README.txt doc/*.html
-%license LICENSE.txt
+%doc README.md
+%license LICENSE.rst
 %{python_sitelib}/%{module}
 %{python_sitelib}/%{module}-%{version}-*.egg-info/
 
@@ -138,8 +151,8 @@ rm -rf $RPM_BUILD_ROOT
 %if 0%{?with_python3}
 %files -n python3-pyasn1
 %defattr(-,root,root,-)
-%doc README.txt doc/*.html
-%license LICENSE.txt
+%doc README.md
+%license LICENSE.rst
 %{python3_sitelib}/%{module}
 %{python3_sitelib}/%{module}-%{version}-*.egg-info/
 
@@ -149,7 +162,15 @@ rm -rf $RPM_BUILD_ROOT
 %{python3_sitelib}/%{module}_modules-%{modules_version}-*.egg-info/
 %endif
 
+%files doc
+%license LICENSE.rst
+%doc doc/build/html/*
+
 %changelog
+* Mon Feb  6 2017 Rob Crittenden <rcritten@redhat.com> - 0.2.1-1
+- Update to upstream release 0.2.1 (#1419310)
+- Added doc subpackage and moved documentation there
+
 * Fri Dec 09 2016 Charalampos Stratakis <cstratak@redhat.com> - 0.1.9-8.1
 - Rebuild for Python 3.6
 
