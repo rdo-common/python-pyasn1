@@ -8,7 +8,7 @@
 %global modules_version 0.0.8
 
 Name:           python-pyasn1
-Version:        0.2.1
+Version:        0.2.3
 Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
@@ -116,7 +116,7 @@ pushd ../pyasn1-modules-%{modules_version}
 popd
 
 pushd doc
-make html
+PYTHONPATH="$RPM_BUILD_ROOT%{python_sitelib}:$PYTHONPATH" make html
 rm -f build/html/.buildinfo
 popd
 
@@ -124,10 +124,10 @@ popd
 %check
 # PYTHONPATH is required because the the tests expect python{,3}-pyasn1
 # to be installed.
-PYTHONPATH="$RPM_BUILD_ROOT%{python_sitelib}:$PYTHONPATH" %{__python2} test/suite.py
+PYTHONPATH="$RPM_BUILD_ROOT%{python_sitelib}:$PYTHONPATH" %{__python2} setup.py test
 %if %{with python3}
 pushd %{py3dir}
-PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitelib}:$PYTHONPATH" %{__python3} test/suite.py
+PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitelib}:$PYTHONPATH" %{__python3} setup.py test
 popd
 %endif
 
@@ -167,6 +167,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc/build/html/*
 
 %changelog
+* Mon Feb 27 2017 Rob Crittenden <rcritten@redhat.com> - 0.2.3-1
+- Update to upstream release 0.2.3 (#1426979)
+- Adapt to the way upstream changed the way tests are executed
+- Pass PYTHONPATH when building the documentation
+
 * Mon Feb  6 2017 Rob Crittenden <rcritten@redhat.com> - 0.2.1-1
 - Update to upstream release 0.2.1 (#1419310)
 - Added doc subpackage and moved documentation there
