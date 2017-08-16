@@ -5,17 +5,16 @@
 %endif
 
 %global module pyasn1
-%global modules_version 0.0.8
+%global modules_version 0.0.11
 
 Name:           python-pyasn1
-Version:        0.2.3
-Release:        2%{?dist}
+Version:        0.3.2
+Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
 Source0:        https://github.com/etingof/pyasn1/archive/v%{version}.tar.gz
-# Modules have not been moved to GitHub AFAICT
-Source1:        http://downloads.sourceforge.net/pyasn1/pyasn1-modules-%{modules_version}.tar.gz
+Source1:        https://github.com/etingof/pyasn1-modules/archive/v%{modules_version}.tar.gz
 URL:            http://pyasn1.sourceforge.net/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
@@ -167,6 +166,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc/build/html/*
 
 %changelog
+* Wed Aug 16 2017 Rob Crittenden <rcritten@redhat.com> - 0.3.2-1
+- Update to upstream release 0.3.2 (#1475594)
+- Update modules to 0.0.11
+
 * Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
