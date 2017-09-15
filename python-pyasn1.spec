@@ -5,10 +5,10 @@
 %endif
 
 %global module pyasn1
-%global modules_version 0.0.11
+%global modules_version 0.1.2
 
 Name:           python-pyasn1
-Version:        0.3.2
+Version:        0.3.4
 Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
@@ -19,6 +19,7 @@ URL:            http://pyasn1.sourceforge.net/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools
+Patch1:         0001-Backport-fixed-crash-at-SequenceOf-native-decoder.patch
 
 %if 0%{?with_python3}
 BuildRequires:  python3-devel
@@ -73,6 +74,7 @@ BuildRequires:  python-sphinx
 
 %prep
 %setup -n %{module}-%{version} -q -b1
+%patch1 -p1
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -166,6 +168,11 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc/build/html/*
 
 %changelog
+* Fri Sep 15 2017 Rob Crittenden <rcritten@redhat.com> - 0.3.4-1
+- Update to upstream release 0.3.4 (#1485669)
+- Update modules to 0.1.2
+- Patch to fixed crash at SequenceOf native decoder
+
 * Wed Aug 16 2017 Rob Crittenden <rcritten@redhat.com> - 0.3.2-1
 - Update to upstream release 0.3.2 (#1475594)
 - Update modules to 0.0.11
