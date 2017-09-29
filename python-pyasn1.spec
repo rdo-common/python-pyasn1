@@ -1,4 +1,4 @@
-%if 0%{?fedora} > 12
+%if 0%{?fedora} || 0%{?rhel} > 7
 %global with_python3 1
 %else
 %{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print (get_python_lib())")}
@@ -9,7 +9,7 @@
 
 Name:           python-pyasn1
 Version:        0.3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -168,6 +168,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc/build/html/*
 
 %changelog
+* Fri Sep 29 2017 Troy Dawson <tdawson@redhat.com> - 0.3.4-2
+- Cleanup spec file conditionals
+
 * Fri Sep 15 2017 Rob Crittenden <rcritten@redhat.com> - 0.3.4-1
 - Update to upstream release 0.3.4 (#1485669)
 - Update modules to 0.1.2
