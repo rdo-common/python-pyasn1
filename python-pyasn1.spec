@@ -5,11 +5,11 @@
 %endif
 
 %global module pyasn1
-%global modules_version 0.1.2
+%global modules_version 0.1.5
 
 Name:           python-pyasn1
-Version:        0.3.4
-Release:        2%{?dist}
+Version:        0.3.7
+Release:        1%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -19,7 +19,6 @@ URL:            http://pyasn1.sourceforge.net/
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools
-Patch1:         0001-Backport-fixed-crash-at-SequenceOf-native-decoder.patch
 
 %if 0%{?with_python3}
 BuildRequires:  python3-devel
@@ -74,7 +73,6 @@ BuildRequires:  python-sphinx
 
 %prep
 %setup -n %{module}-%{version} -q -b1
-%patch1 -p1
 
 %if 0%{?with_python3}
 rm -rf %{py3dir}
@@ -168,6 +166,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc/build/html/*
 
 %changelog
+* Thu Nov 16 2017 Christian Heimes <cheimes@redhat.com> - 0.3.7-1
+- Update to upstream release 0.3.7 (#1492446)
+- Update modules to 0.1.5
+
 * Fri Sep 29 2017 Troy Dawson <tdawson@redhat.com> - 0.3.4-2
 - Cleanup spec file conditionals
 
