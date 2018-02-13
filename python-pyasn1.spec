@@ -16,7 +16,6 @@ Group:          System Environment/Libraries
 Source0:        https://github.com/etingof/pyasn1/archive/v%{version}.tar.gz
 Source1:        https://github.com/etingof/pyasn1-modules/archive/v%{modules_version}.tar.gz
 URL:            http://pyasn1.sourceforge.net/
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 BuildRequires:  python-devel python-setuptools
 
