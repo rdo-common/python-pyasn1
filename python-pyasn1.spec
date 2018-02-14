@@ -9,7 +9,7 @@
 
 Name:           python-pyasn1
 Version:        0.3.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -17,7 +17,7 @@ Source0:        https://github.com/etingof/pyasn1/archive/v%{version}.tar.gz
 Source1:        https://github.com/etingof/pyasn1-modules/archive/v%{modules_version}.tar.gz
 URL:            http://pyasn1.sourceforge.net/
 BuildArch:      noarch
-BuildRequires:  python-devel python-setuptools
+BuildRequires:  python2-devel python2-setuptools
 
 %if 0%{?with_python3}
 BuildRequires:  python3-devel
@@ -39,7 +39,7 @@ language.
 
 %package -n python2-pyasn1-modules
 Summary:    Modules for pyasn1
-Requires:   python-pyasn1 >= %{version}-%{release}
+Requires:   python2-pyasn1 >= %{version}-%{release}
 %{?python_provide:%python_provide python2-pyasn1-modules}
 %{!?python_provide:Provides: python-pyasn1-modules}
 
@@ -64,7 +64,7 @@ ASN.1 types modules for python3-pyasn1.
 
 %package doc
 Summary:        Documentation for pyasn1
-BuildRequires:  python-sphinx
+BuildRequires:  python2-sphinx
 
 %description doc
 %{summary}.
@@ -162,6 +162,10 @@ popd
 %doc doc/build/html/*
 
 %changelog
+* Wed Feb 14 2018 Iryna Shcherbina <ishcherb@redhat.com> - 0.3.7-3
+- Update Python 2 dependency declarations to new packaging standards
+  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
+
 * Fri Feb 09 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
