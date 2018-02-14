@@ -130,9 +130,6 @@ popd
 %endif
 
 
-%clean
-rm -rf $RPM_BUILD_ROOT
-
 
 %files -n python2-pyasn1
 %defattr(-,root,root,-)
