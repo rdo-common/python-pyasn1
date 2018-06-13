@@ -1,9 +1,3 @@
-%if 0%{?fedora} || 0%{?rhel} > 7
-%global with_python3 1
-%else
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print (get_python_lib())")}
-%endif
-
 %global module pyasn1
 %global modules_version 0.1.5
 
@@ -17,12 +11,6 @@ Source0:        https://github.com/etingof/pyasn1/archive/v%{version}.tar.gz
 Source1:        https://github.com/etingof/pyasn1-modules/archive/v%{modules_version}.tar.gz
 URL:            http://pyasn1.sourceforge.net/
 BuildArch:      noarch
-BuildRequires:  python2-devel python2-setuptools
-
-%if 0%{?with_python3}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%endif
 
 %description
 This is an implementation of ASN.1 types and codecs in the Python programming
@@ -32,6 +20,8 @@ language.
 Summary:    ASN.1 tools for Python 2
 %{?python_provide:%python_provide python2-pyasn1}
 %{!?python_provide:Provides: python-pyasn1}
+BuildRequires:  python2-devel
+BuildRequires:  python2-setuptools
 
 %description -n python2-pyasn1
 This is an implementation of ASN.1 types and codecs in the Python 2 programming
@@ -42,6 +32,8 @@ Summary:    Modules for pyasn1
 Requires:   python2-pyasn1 >= %{version}-%{release}
 %{?python_provide:%python_provide python2-pyasn1-modules}
 %{!?python_provide:Provides: python-pyasn1-modules}
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 
 %description -n python2-pyasn1-modules
 ASN.1 types modules for python-pyasn1.
@@ -64,11 +56,7 @@ ASN.1 types modules for python3-pyasn1.
 
 %package doc
 Summary:        Documentation for pyasn1
-%if 0%{?with_python3}
 BuildRequires:  python3-sphinx
-%else
-BuildRequires:  python2-sphinx
-%endif
 
 %description doc
 %{summary}.
@@ -77,93 +65,55 @@ BuildRequires:  python2-sphinx
 %prep
 %setup -n %{module}-%{version} -q -b1
 
-%if 0%{?with_python3}
-rm -rf %{py3dir}
-cp -a . %{py3dir}
-cp -a ../pyasn1-modules-%{modules_version} %{py3dir}-modules
-%endif
-
 
 %build
-%{__python} setup.py build
+%py2_build
+%py3_build
+
 pushd ../pyasn1-modules-%{modules_version}
-%{__python} setup.py build
-popd
-
-%if 0%{?with_python3}
-pushd %{py3dir}
-%{__python3} setup.py build
-popd
-pushd %{py3dir}-modules
-%{__python3} setup.py build
-popd
-%endif
-
-
-%install
-rm -rf $RPM_BUILD_ROOT
-
-%if 0%{?with_python3}
-pushd %{py3dir}
-%{__python3} setup.py install --skip-build --root $RPM_BUILD_ROOT
-popd
-pushd %{py3dir}-modules
-%{__python3} setup.py install --skip-build --root $RPM_BUILD_ROOT
-popd
-%endif
-
-%{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT
-pushd ../pyasn1-modules-%{modules_version}
-%{__python} setup.py install --skip-build --root $RPM_BUILD_ROOT
+%py2_build
+%py3_build
 popd
 
 pushd doc
-%if 0%{?with_python3}
-PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitelib}:$PYTHONPATH" make SPHINXBUILD=sphinx-build-3 html
-%else
-PYTHONPATH="$RPM_BUILD_ROOT%{python_sitelib}:$PYTHONPATH" make html
-%endif
-rm -f build/html/.buildinfo
+PYTHONPATH=%{buildroot}%{python3_sitelib} make SPHINXBUILD=sphinx-build-3 html
+popd
+
+
+%install
+%py2_install
+%py3_install
+
+pushd ../pyasn1-modules-%{modules_version}
+%py2_install
+%py3_install
 popd
 
 
 %check
-# PYTHONPATH is required because the the tests expect python{,3}-pyasn1
-# to be installed.
-PYTHONPATH="$RPM_BUILD_ROOT%{python_sitelib}:$PYTHONPATH" %{__python2} setup.py test
-%if %{with python3}
-pushd %{py3dir}
-PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitelib}:$PYTHONPATH" %{__python3} setup.py test
-popd
-%endif
-
+PYTHONPATH=%{buildroot}%{python2_sitelib} %{__python2} setup.py test
+PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 
 
 %files -n python2-pyasn1
-%defattr(-,root,root,-)
 %doc README.md
 %license LICENSE.rst
-%{python_sitelib}/%{module}
-%{python_sitelib}/%{module}-%{version}-*.egg-info/
+%{python2_sitelib}/%{module}
+%{python2_sitelib}/%{module}-%{version}-*.egg-info/
 
 %files -n python2-pyasn1-modules
-%defattr(-,root,root,-)
-%{python_sitelib}/%{module}_modules/
-%{python_sitelib}/%{module}_modules-%{modules_version}-*.egg-info/
+%{python2_sitelib}/%{module}_modules/
+%{python2_sitelib}/%{module}_modules-%{modules_version}-*.egg-info/
 
-%if 0%{?with_python3}
 %files -n python3-pyasn1
-%defattr(-,root,root,-)
 %doc README.md
 %license LICENSE.rst
 %{python3_sitelib}/%{module}
 %{python3_sitelib}/%{module}-%{version}-*.egg-info/
 
 %files -n python3-pyasn1-modules
-%defattr(-,root,root,-)
 %{python3_sitelib}/%{module}_modules/
 %{python3_sitelib}/%{module}_modules-%{modules_version}-*.egg-info/
-%endif
 
 %files doc
 %license LICENSE.rst
@@ -172,6 +122,7 @@ popd
 %changelog
 * Wed Jun 13 2018 Miro Hrončok <mhroncok@redhat.com> - 0.3.7-5
 - Use Python 3 Sphinx if with Python 3
+- Cleanup
 
 * Sun Jun 17 2018 Miro Hrončok <mhroncok@redhat.com> - 0.3.7-4
 - Rebuilt for Python 3.7
