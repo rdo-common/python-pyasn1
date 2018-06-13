@@ -9,7 +9,7 @@
 
 Name:           python-pyasn1
 Version:        0.3.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -64,7 +64,11 @@ ASN.1 types modules for python3-pyasn1.
 
 %package doc
 Summary:        Documentation for pyasn1
+%if 0%{?with_python3}
+BuildRequires:  python3-sphinx
+%else
 BuildRequires:  python2-sphinx
+%endif
 
 %description doc
 %{summary}.
@@ -114,7 +118,11 @@ pushd ../pyasn1-modules-%{modules_version}
 popd
 
 pushd doc
+%if 0%{?with_python3}
+PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitelib}:$PYTHONPATH" make SPHINXBUILD=sphinx-build-3 html
+%else
 PYTHONPATH="$RPM_BUILD_ROOT%{python_sitelib}:$PYTHONPATH" make html
+%endif
 rm -f build/html/.buildinfo
 popd
 
@@ -162,6 +170,9 @@ popd
 %doc doc/build/html/*
 
 %changelog
+* Wed Jun 13 2018 Miro Hrončok <mhroncok@redhat.com> - 0.3.7-5
+- Use Python 3 Sphinx if with Python 3
+
 * Sun Jun 17 2018 Miro Hrončok <mhroncok@redhat.com> - 0.3.7-4
 - Rebuilt for Python 3.7
 
