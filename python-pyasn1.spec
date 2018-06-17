@@ -9,7 +9,7 @@
 
 Name:           python-pyasn1
 Version:        0.3.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -162,6 +162,9 @@ popd
 %doc doc/build/html/*
 
 %changelog
+* Sun Jun 17 2018 Miro Hrončok <mhroncok@redhat.com> - 0.3.7-4
+- Rebuilt for Python 3.7
+
 * Wed Feb 14 2018 Iryna Shcherbina <ishcherb@redhat.com> - 0.3.7-3
 - Update Python 2 dependency declarations to new packaging standards
   (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
