@@ -3,7 +3,7 @@
 
 Name:           python-pyasn1
 Version:        0.3.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Group:          System Environment/Libraries
@@ -120,6 +120,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 %doc doc/build/html/*
 
 %changelog
+* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Wed Jun 13 2018 Miro Hrončok <mhroncok@redhat.com> - 0.3.7-5
 - Use Python 3 Sphinx if with Python 3
 - Cleanup
