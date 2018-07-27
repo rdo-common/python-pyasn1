@@ -123,7 +123,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
-* Wed Jun 13 2018 Miro Hrončok <mhroncok@redhat.com> - 0.3.7-5
+* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 0.3.7-5
 - Use Python 3 Sphinx if with Python 3
 - Cleanup
 
